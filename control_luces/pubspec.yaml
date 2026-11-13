@@ -1,0 +1,26 @@
+name: control_luces_cockpit
+description: Cabina didáctica Flutter para controlar un Arduino Mega por USB OTG.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  usb_serial: ^0.5.2
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.14.3
+flutter:
+  uses-material-design: true
+  assets:
+    - design/stitch_autodrive_cockpit_ui_ux_simulator/peugeot-408-interior.jpg
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  # Opcional para Android 8+:
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icon/icon.png"

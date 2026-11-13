@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AutoDrive Simulator Cockpit</title>
+<!-- Material Symbols & Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#0c141c",
+            "surface-container": "#182029",
+            "surface-container-low": "#141c24",
+            "surface-container-high": "#232b33",
+            "surface-container-highest": "#2e363e",
+            "primary": "#9fcaff",
+            "primary-container": "#4ca6ff",
+            "secondary": "#e9c176",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-surface": "#dbe3ef",
+            "on-surface-variant": "#c0c7d4",
+            "outline": "#8a919d",
+            "outline-variant": "#404752",
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk", "sans-serif"],
+            "mono": ["JetBrains Mono", "monospace"],
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+    }
+    .hud-panel {
+      background: rgba(12, 20, 28, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(159, 202, 255, 0.16);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    }
+    .indicator-active-green {
+      color: #3bf19a;
+      filter: drop-shadow(0 0 10px rgba(59, 241, 154, 0.9));
+      opacity: 1 !important;
+    }
+    .indicator-active-blue {
+      color: #4ca6ff;
+      filter: drop-shadow(0 0 12px rgba(76, 166, 255, 0.95));
+      opacity: 1 !important;
+    }
+    .indicator-active-red {
+      color: #ff5252;
+      filter: drop-shadow(0 0 12px rgba(255, 82, 82, 0.95));
+      opacity: 1 !important;
+    }
+    .indicator-active-amber {
+      color: #ffb822;
+      filter: drop-shadow(0 0 12px rgba(255, 184, 34, 0.95));
+      opacity: 1 !important;
+    }
+  </style>
+</head>
+<body class="bg-black text-on-surface font-mono w-screen h-screen overflow-hidden select-none relative">
+<!-- FONDO FOTOGRÁFICO REAL COCKPIT PEUGEOT -->
+<div class="absolute inset-0 z-0">
+<img alt="Cabina Peugeot 408" class="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYQIuIbsJU133wvQetuY34Lvu36xo_pXsczQ2Nrw84fzgGS_RIB9-6nNsyoK9UGoVI9Q5aLLgn-IWtTO1ycB9B_WmBKxx512uKMRPVcLCs7jtJdprT1AOBfAQ61dKmegESbSkJSsk8Rr_E0n4xLtwZ8_fabvLySNEyPQzeqQbiDPfTFg5FcaGGCskVsDrFaJXVBkdq3B2l94mxSpbDkqugsXoh54_0FV99vjRWSjwcAM-RGLSussPSoQ"/>
+<!-- Viñeta radial oscura para contraste de mandos interactivos HUD -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/75 pointer-events-none"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.65)_90%)] pointer-events-none"></div>
+</div>
+<!-- CAPA INTERACTIVA HUD COMPLETA -->
+<div class="relative z-10 w-full h-full flex flex-col justify-between p-4 md:p-6">
+<!-- BARRA SUPERIOR DISCRETA (ESTADO ARDUINO & TELEMETRÍA) -->
+<header class="w-full flex items-center justify-between">
+<!-- Indicador de conexión USB OTG -->
+<div class="flex items-center gap-3 hud-panel px-4 py-2 rounded-xl">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold tracking-wider text-emerald-400 uppercase">Arduino Conectado</span>
+<span class="text-[10px] bg-emerald-950/80 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30">USB OTG</span>
+</div>
+<span class="text-[10px] text-outline font-medium tracking-tight">MEGA 2560 • CH340 • 115200 BAUD</span>
+</div>
+</div>
+<!-- Reloj / Bus Tensión -->
+<div class="hud-panel px-4 py-2 rounded-xl flex items-center gap-4 text-xs font-semibold">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>13.8 V</span>
+</div>
+<div class="h-3 w-px bg-white/10"></div>
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span id="speed-mini">0 KM/H</span>
+</div>
+<button class="p-1 text-on-surface-variant hover:text-white transition-colors" onclick="toggleQuickSettings()" title="Ajustes de enlace">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</header>
+<!-- ZONA CENTRAL SUPERIOR: CLÚSTER DE TESTIGOS REGLAMENTARIOS (ISO) -->
+<div class="w-full flex justify-center -mt-2">
+<div class="hud-panel px-6 py-2.5 rounded-2xl flex items-center gap-5 sm:gap-7 border-t-2 border-t-primary/30 shadow-[0_4px_25px_rgba(0,0,0,0.7)]">
+<!-- Intermitente Izquierdo -->
+<div class="flex flex-col items-center gap-0.5 opacity-20 text-emerald-400 transition-all duration-100" id="tell-left">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">turn_left</span>
+<span class="text-[9px] tracking-widest font-bold">IZQ</span>
+</div>
+<div class="h-6 w-px bg-white/10"></div>
+<!-- Luces de Posición / Cruce (Bajas) -->
+<div class="flex flex-col items-center gap-0.5 opacity-20 text-emerald-400 transition-all duration-150" id="tell-lowbeam">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">emoji_objects</span>
+<span class="text-[9px] tracking-wider font-bold">CRUCE</span>
+</div>
+<!-- Luces Altas / Carretera -->
+<div class="flex flex-col items-center gap-0.5 opacity-20 text-sky-400 transition-all duration-150" id="tell-highbeam">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">flare</span>
+<span class="text-[9px] tracking-wider font-bold">LARGAS</span>
+</div>
+<!-- Testigo STOP / Freno -->
+<div class="flex flex-col items-center gap-0.5 opacity-20 text-rose-500 transition-all duration-100" id="tell-brake">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">do_not_disturb_on</span>
+<span class="text-[9px] tracking-wider font-bold">FRENO</span>
+</div>
+<div class="h-6 w-px bg-white/10"></div>
+<!-- Intermitente Derecho -->
+<div class="flex flex-col items-center gap-0.5 opacity-20 text-emerald-400 transition-all duration-100" id="tell-right">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">turn_right</span>
+<span class="text-[9px] tracking-widest font-bold">DER</span>
+</div>
+</div>
+</div>
+<!-- ZONA INFERIOR DE ACCIONES RÁPIDAS (MANDOS TÁCTILES PRINCIPALES) -->
+<div class="w-full grid grid-cols-12 gap-3 sm:gap-4 items-end mt-auto">
+<!-- COLUMNA IZQUIERDA: MANDOS DE ILUMINACIÓN Y DIRECCIONALES -->
+<div class="col-span-12 md:col-span-4 flex flex-col gap-2.5">
+<div class="hud-panel p-3.5 rounded-2xl flex flex-col gap-3">
+<div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+<span class="text-[11px] font-bold uppercase tracking-wider text-outline">Mandos de Iluminación</span>
+<span class="text-[10px] text-primary" id="can-lights-tag">CAN: 0x2A1</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<!-- Botón Luces Cruce / Posición -->
+<button class="group relative flex flex-col items-center justify-center p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all" id="btn-cruce" onclick="toggleLowBeam()">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-emerald-400 transition-colors" id="icon-cruce">emoji_objects</span>
+<span class="text-xs font-bold tracking-wide mt-1 text-on-surface">LUCES CRUCE</span>
+<span class="text-[10px] text-outline font-medium" id="status-cruce">APAGADAS</span>
+</button>
+<!-- Botón Luces Altas / Ráfaga -->
+<button class="group relative flex flex-col items-center justify-center p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all" id="btn-largas" onclick="toggleHighBeam()">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-sky-400 transition-colors" id="icon-largas">flare</span>
+<span class="text-xs font-bold tracking-wide mt-1 text-on-surface">LUCES ALTAS</span>
+<span class="text-[10px] text-outline font-medium" id="status-largas">APAGADAS</span>
+</button>
+</div>
+<!-- Pulsadores de Intermitentes Izq / Der -->
+<div class="grid grid-cols-2 gap-2 pt-0.5">
+<button class="flex items-center justify-center gap-2 py-3 px-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all" id="btn-dir-left" onclick="toggleStalk('LEFT')">
+<span class="material-symbols-outlined text-xl text-emerald-400" style="font-variation-settings: 'FILL' 1;">arrow_back</span>
+<div class="flex flex-col text-left">
+<span class="text-xs font-bold text-on-surface">GIRO IZQ</span>
+<span class="text-[9px] text-outline" id="label-dir-left">DESACT.</span>
+</div>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 px-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all" id="btn-dir-right" onclick="toggleStalk('RIGHT')">
+<div class="flex flex-col text-right">
+<span class="text-xs font-bold text-on-surface">GIRO DER</span>
+<span class="text-[9px] text-outline" id="label-dir-right">DESACT.</span>
+</div>
+<span class="material-symbols-outlined text-xl text-emerald-400" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</div>
+<!-- Ráfaga momentánea -->
+<button class="w-full py-1.5 px-3 rounded-lg bg-sky-950/40 border border-sky-400/20 text-sky-300 text-[11px] font-bold hover:bg-sky-900/50 active:bg-sky-500 active:text-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors" onmousedown="triggerHighBeamFlash(true)" onmouseup="triggerHighBeamFlash(false)" ontouchend="triggerHighBeamFlash(false)" ontouchstart="triggerHighBeamFlash(true)">
+<span class="material-symbols-outlined text-[16px]">flash_on</span>
+            Pulsar Ráfaga Instantánea
+          </button>
+</div>
+</div>
+<!-- COLUMNA CENTRAL: BOTÓN PROMINENTE DE BALIZAS / HAZARD -->
+<div class="col-span-12 md:col-span-4 flex flex-col items-center justify-end pb-1">
+<div class="hud-panel p-4 rounded-3xl flex flex-col items-center gap-2 w-full max-w-[240px]">
+<span class="text-[10px] font-bold tracking-widest text-outline uppercase">Emergencia / Hazard</span>
+<!-- Pulsador Triangular de Balizas -->
+<button class="relative w-28 h-24 rounded-2xl bg-gradient-to-b from-rose-950/70 to-rose-950/30 border-2 border-rose-500/50 flex flex-col items-center justify-center active:scale-95 transition-all duration-150 shadow-[0_0_20px_rgba(244,63,94,0.25)] hover:border-rose-400" id="btn-hazard" onclick="toggleHazard()">
+<div class="flex items-center justify-center text-rose-500 transition-transform" id="hazard-icon-wrapper">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="text-[10px] font-black text-rose-400 tracking-wider -mt-1">BALIZAS</span>
+</button>
+<span class="text-[10px] text-outline" id="hazard-state-desc">PULSAR PARA ACTIVAR</span>
+</div>
+</div>
+<!-- COLUMNA DERECHA: PEDAL DE FRENO TÁCTIL GRANDE Y VISIBLE -->
+<div class="col-span-12 md:col-span-4 flex flex-col items-end gap-2.5">
+<div class="hud-panel p-3.5 rounded-2xl flex flex-col gap-2 w-full">
+<div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+<span class="text-[11px] font-bold uppercase tracking-wider text-outline">Pedal de Freno Didáctico</span>
+<span class="text-[10px] font-bold text-rose-400" id="brake-status-text">REPOSO (0%)</span>
+</div>
+<!-- PEDAL FÍSICO INTERACTIVO -->
+<div class="w-full flex items-center justify-center py-1">
+<button class="relative w-full max-w-[280px] h-28 rounded-2xl bg-gradient-to-b from-zinc-800 to-zinc-950 border-2 border-zinc-600 active:border-rose-500 flex flex-col items-center justify-between p-3.5 select-none transition-transform duration-75 cursor-pointer shadow-[0_12px_24px_rgba(0,0,0,0.8),inset_0_2px_4px_rgba(255,255,255,0.15)] group active:translate-y-1" id="brake-pedal" onmousedown="setBrake(true)" onmouseleave="setBrake(false)" onmouseup="setBrake(false)" ontouchend="setBrake(false)" ontouchstart="setBrake(true)">
+<!-- Tacos de fricción antideslizantes de pedal deportivo -->
+<div class="w-full flex justify-around px-4">
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+</div>
+<div class="w-full flex justify-around px-4">
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+<span class="w-4 h-2.5 rounded-sm bg-black/80 border border-white/5 shadow-inner"></span>
+</div>
+<!-- Rótulo del Pedal -->
+<div class="w-full flex items-center justify-center gap-2 py-1 px-3 rounded-lg bg-black/60 border border-white/10 group-active:border-rose-500/50">
+<span class="material-symbols-outlined text-[18px] text-rose-500" style="font-variation-settings: 'FILL' 1;">do_not_disturb_on</span>
+<span class="text-xs font-black tracking-widest text-white uppercase" id="brake-pedal-label">PISAR FRENO</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between text-[10px] text-outline pt-0.5">
+<span>SALIDA PIN 7 DIGITAL:</span>
+<span class="text-rose-400 font-bold" id="brake-pin-val">LOW (LUCES OFF)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SCRIPT DE CONTROL LÓGICO DE CABINA DIDÁCTICA -->
+<script>
+    // ESTADOS
+    let lowBeamActive = false;
+    let highBeamActive = false;
+    let stalkState = null; // 'LEFT', 'RIGHT', o null
+    let hazardActive = false;
+    let brakeActive = false;
+    let blinkPhase = false;
+    let blinkInterval = null;
+
+    // Inicializar ciclo de parpadeo automotriz (1.5 Hz reglamentario)
+    function startBlinkLoop() {
+      if (blinkInterval) clearInterval(blinkInterval);
+      blinkInterval = setInterval(() => {
+        blinkPhase = !blinkPhase;
+        renderIndicators();
+      }, 400);
+    }
+
+    // Actualización de testigos e indicadores
+    function renderIndicators() {
+      const leftTell = document.getElementById('tell-left');
+      const rightTell = document.getElementById('tell-right');
+      const hazardBtn = document.getElementById('btn-hazard');
+      const hazardIcon = document.getElementById('hazard-icon-wrapper');
+
+      if (hazardActive) {
+        // Balizas encienden ambos intermitentes sincronizados
+        if (blinkPhase) {
+          leftTell.classList.add('indicator-active-amber');
+          rightTell.classList.add('indicator-active-amber');
+          if (hazardBtn) {
+            hazardBtn.classList.add('bg-rose-600', 'shadow-[0_0_30px_rgba(244,63,94,0.9)]');
+            hazardIcon.classList.add('text-white');
+          }
+        } else {
+          leftTell.classList.remove('indicator-active-amber');
+          rightTell.classList.remove('indicator-active-amber');
+          if (hazardBtn) {
+            hazardBtn.classList.remove('bg-rose-600', 'shadow-[0_0_30px_rgba(244,63,94,0.9)]');
+            hazardIcon.classList.remove('text-white');
+          }
+        }
+      } else {
+        // Si no hay hazard, seguir direccionales individuales
+        if (stalkState === 'LEFT') {
+          if (blinkPhase) leftTell.classList.add('indicator-active-green');
+          else leftTell.classList.remove('indicator-active-green');
+          rightTell.classList.remove('indicator-active-green', 'indicator-active-amber');
+        } else if (stalkState === 'RIGHT') {
+          if (blinkPhase) rightTell.classList.add('indicator-active-green');
+          else rightTell.classList.remove('indicator-active-green');
+          leftTell.classList.remove('indicator-active-green', 'indicator-active-amber');
+        } else {
+          leftTell.classList.remove('indicator-active-green', 'indicator-active-amber');
+          rightTell.classList.remove('indicator-active-green', 'indicator-active-amber');
+        }
+
+        if (hazardBtn) {
+          hazardBtn.classList.remove('bg-rose-600', 'shadow-[0_0_30px_rgba(244,63,94,0.9)]');
+          hazardIcon.classList.remove('text-white');
+        }
+      }
+    }
+
+    // Toggle Luces de Cruce
+    function toggleLowBeam() {
+      lowBeamActive = !lowBeamActive;
+      const btn = document.getElementById('btn-cruce');
+      const tell = document.getElementById('tell-lowbeam');
+      const icon = document.getElementById('icon-cruce');
+      const status = document.getElementById('status-cruce');
+
+      if (lowBeamActive) {
+        btn.classList.add('bg-emerald-950/60', 'border-emerald-500/70', 'shadow-[0_0_16px_rgba(59,241,154,0.3)]');
+        icon.classList.add('text-emerald-400');
+        status.textContent = 'ENCENDIDAS';
+        status.className = 'text-[10px] text-emerald-400 font-bold';
+        tell.classList.add('indicator-active-green');
+      } else {
+        btn.classList.remove('bg-emerald-950/60', 'border-emerald-500/70', 'shadow-[0_0_16px_rgba(59,241,154,0.3)]');
+        icon.classList.remove('text-emerald-400');
+        status.textContent = 'APAGADAS';
+        status.className = 'text-[10px] text-outline font-medium';
+        tell.classList.remove('indicator-active-green');
+
+        // Si apagamos cruce, también apagar altas fijas
+        if (highBeamActive) toggleHighBeam();
+      }
+    }
+
+    // Toggle Luces Altas / Carretera
+    function toggleHighBeam() {
+      highBeamActive = !highBeamActive;
+      const btn = document.getElementById('btn-largas');
+      const tell = document.getElementById('tell-highbeam');
+      const icon = document.getElementById('icon-largas');
+      const status = document.getElementById('status-largas');
+
+      if (highBeamActive) {
+        // En vehículos reales, las altas activan o requieren posición/cruce
+        if (!lowBeamActive) toggleLowBeam();
+
+        btn.classList.add('bg-sky-950/60', 'border-sky-500/70', 'shadow-[0_0_16px_rgba(76,166,255,0.4)]');
+        icon.classList.add('text-sky-400');
+        status.textContent = 'ACTIVADAS';
+        status.className = 'text-[10px] text-sky-400 font-bold';
+        tell.classList.add('indicator-active-blue');
+      } else {
+        btn.classList.remove('bg-sky-950/60', 'border-sky-500/70', 'shadow-[0_0_16px_rgba(76,166,255,0.4)]');
+        icon.classList.remove('text-sky-400');
+        status.textContent = 'APAGADAS';
+        status.className = 'text-[10px] text-outline font-medium';
+        tell.classList.remove('indicator-active-blue');
+      }
+    }
+
+    // Ráfaga instantánea de altas
+    function triggerHighBeamFlash(press) {
+      const tell = document.getElementById('tell-highbeam');
+      if (press) {
+        tell.classList.add('indicator-active-blue');
+      } else {
+        if (!highBeamActive) {
+          tell.classList.remove('indicator-active-blue');
+        }
+      }
+    }
+
+    // Intermitentes Izq/Der
+    function toggleStalk(dir) {
+      const labelLeft = document.getElementById('label-dir-left');
+      const labelRight = document.getElementById('label-dir-right');
+      const btnLeft = document.getElementById('btn-dir-left');
+      const btnRight = document.getElementById('btn-dir-right');
+
+      if (stalkState === dir) {
+        stalkState = null;
+        labelLeft.textContent = 'DESACT.';
+        labelRight.textContent = 'DESACT.';
+        btnLeft.classList.remove('bg-emerald-950/60', 'border-emerald-500');
+        btnRight.classList.remove('bg-emerald-950/60', 'border-emerald-500');
+      } else {
+        stalkState = dir;
+        if (dir === 'LEFT') {
+          labelLeft.textContent = 'DESTELLANDO';
+          labelRight.textContent = 'DESACT.';
+          btnLeft.classList.add('bg-emerald-950/60', 'border-emerald-500');
+          btnRight.classList.remove('bg-emerald-950/60', 'border-emerald-500');
+        } else {
+          labelRight.textContent = 'DESTELLANDO';
+          labelLeft.textContent = 'DESACT.';
+          btnRight.classList.add('bg-emerald-950/60', 'border-emerald-500');
+          btnLeft.classList.remove('bg-emerald-950/60', 'border-emerald-500');
+        }
+      }
+      renderIndicators();
+    }
+
+    // Balizas / Hazard
+    function toggleHazard() {
+      hazardActive = !hazardActive;
+      const desc = document.getElementById('hazard-state-desc');
+      if (hazardActive) {
+        desc.textContent = 'PELIGRO ACTIVO';
+        desc.className = 'text-[10px] text-rose-400 font-bold animate-pulse';
+      } else {
+        desc.textContent = 'PULSAR PARA ACTIVAR';
+        desc.className = 'text-[10px] text-outline';
+      }
+      renderIndicators();
+    }
+
+    // Pedal de Freno Táctil
+    function setBrake(isPressed) {
+      brakeActive = isPressed;
+      const pedal = document.getElementById('brake-pedal');
+      const tellBrake = document.getElementById('tell-brake');
+      const statusText = document.getElementById('brake-status-text');
+      const pinVal = document.getElementById('brake-pin-val');
+      const label = document.getElementById('brake-pedal-label');
+
+      if (brakeActive) {
+        pedal.classList.add('border-rose-500', 'bg-zinc-900', 'shadow-[0_0_24px_rgba(244,63,94,0.6)]');
+        tellBrake.classList.add('indicator-active-red');
+        statusText.textContent = 'FRENANDO (100%)';
+        statusText.className = 'text-[10px] font-bold text-rose-400 animate-pulse';
+        pinVal.textContent = 'HIGH (LUCES FRENO ON)';
+        pinVal.className = 'text-rose-400 font-bold animate-pulse';
+        label.textContent = '¡FRENO ACTIVO!';
+        label.className = 'text-xs font-black tracking-widest text-rose-400 uppercase';
+      } else {
+        pedal.classList.remove('border-rose-500', 'bg-zinc-900', 'shadow-[0_0_24px_rgba(244,63,94,0.6)]');
+        tellBrake.classList.remove('indicator-active-red');
+        statusText.textContent = 'REPOSO (0%)';
+        statusText.className = 'text-[10px] font-bold text-outline';
+        pinVal.textContent = 'LOW (LUCES OFF)';
+        pinVal.className = 'text-outline font-medium';
+        label.textContent = 'PISAR FRENO';
+        label.className = 'text-xs font-black tracking-widest text-white uppercase';
+      }
+    }
+
+    function toggleQuickSettings() {
+      alert("Enlace Arduino Mega 2560:\nPuerto: /dev/ttyUSB0 (OTG Live)\nVelocidad: 115200 Baud\nFrecuencia Muestreo: 1000Hz");
+    }
+
+    // Iniciar loop de testigos
+    startBlinkLoop();
+  </script>
+</body></html>

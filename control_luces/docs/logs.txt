@@ -1,0 +1,680 @@
+❯ rg -n -C 12 "FAILURE|BUILD FAILED|Caused by|checkReleaseAarMetadata|requires|minCompileSdk|compileSdk|AAR metadata|error:" \
+        /tmp/gradle-usb-error.log
+1-Initialized native services in: /home/matias/.gradle/native
+2-Initialized jansi services in: /home/matias/.gradle/native
+3-Removing 0 daemon stop events from registry
+4-Previous Daemon (382607) stopped at Thu Nov 12 23:48:31 ART 2026 stop command received
+5-Starting a Gradle Daemon, 1 stopped Daemon could not be reused, use --status for details
+6-Starting process 'Gradle build daemon'. Working directory: /home/matias/.gradle/daemon/9.3.1 Command: /usr/lib/jvm/java-17-openjdk/bin/java --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED--add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED -XX:MaxMetaspaceSize=4G -XX:ReservedCodeCacheSize=512m -XX:+HeapDumpOnOutOfMemoryError -Xmx8G -Dfile.encoding=UTF-8 -Duser.country=AR -Duser.language=es -Duser.variant -cp /home/matias/.gradle/wrapper/dists/gradle-9.3.1-all/9ot9r568e8zfvvd4mn8rbu1j0/gradle-9.3.1/lib/gradle-daemon-main-9.3.1.jar -javaagent:/home/matias/.gradle/wrapper/dists/gradle-9.3.1-all/9ot9r568e8zfvvd4mn8rbu1j0/gradle-9.3.1/lib/agents/gradle-instrumentation-agent-9.3.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon9.3.1
+7-Successfully started process 'Gradle build daemon'
+8-An attempt to start the daemon took 4.886 secs.
+9-The client will now receive all logging from the daemon (pid: 397523). The daemon log file: /home/matias/.gradle/daemon/9.3.1/daemon-397523.out.log
+10-Starting build in new daemon [memory: 8 GiB]
+11-Using 4 worker leases.
+12:Operational build model parameters: {requiresToolingModels=false, parallelProjectExecution=false, configureOnDemand=false, configurationCache=false, configurationCacheParallelStore=false, configurationCacheParallelLoad=true, isolatedProjects=false, parallelProjectConfiguration=false, intermediateModelCache=false, parallelToolingApiActions=false, invalidateCoupledProjects=false, modelAsProjectDependency=false, resilientModelBuilding=false}
+13-Received JVM installation metadata from '/usr/lib/jvm/java-17-openjdk': {JAVA_HOME=/usr/lib/jvm/java-17-openjdk, JAVA_VERSION=17.0.20.1, JAVA_VENDOR=Arch Linux, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.20.1+1, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.20.1+1, VM_VENDOR=Arch Linux, OS_ARCH=amd64}
+14-Watching the file system is configured to be enabled if available
+15-Now considering [/home/matias/Escritorio/control de luces arduino/control_luces/android] as hierarchies to watch
+16-File system watching is active
+17-Starting Build
+18-Now considering [/home/matias/flutter/packages/flutter_tools/gradle, /home/matias/Escritorio/control de luces arduino/control_luces/android] as hierarchies to watch
+19-
+20-> Configure project :gradle
+21-Evaluating project ':gradle' using build file '/home/matias/flutter/packages/flutter_tools/gradle/build.gradle.kts'.
+22-Resolved plugin [id: 'org.gradle.java-gradle-plugin']
+23-Resolved plugin [id: 'org.gradle.groovy']
+24-Resolved plugin [id: 'org.gradle.kotlin.kotlin-dsl', version: '6.4.2']
+--
+215-The 'org.jetbrains.kotlin.android' plugin in project ':usb_serial' is no longer required for Kotlin support since AGP 9.0.
+216-Solution:
+217-Remove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.
+218-See https://kotl.in/gradle/agp-built-in-kotlin for more details.
+219-
+220-All projects evaluated.
+221-Task path ':app:assembleRelease' matched project ':app'
+222-Task name matched 'assembleRelease'
+223-Selected primary task 'assembleRelease' from project :app
+224-Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileDebugAndroidTestKotlin
+225-Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileDebugKotlin
+226-Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileProfileKotlin
+227:Tasks to be executed: [task ':app:ReleaseMinSdkCheck', task ':app:validateCompileSdkVersion', task ':app:preBuild', task ':app:preReleaseBuild', task ':app:configureCMakeRelease[arm64-v8a]', task ':app:buildCMakeRelease[arm64-v8a]', task ':app:configureCMakeRelease[armeabi-v7a]', task ':app:buildCMakeRelease[armeabi-v7a]', task ':app:configureCMakeRelease[x86_64]', task ':app:buildCMakeRelease[x86_64]', task ':app:compileFlutterBuildRelease', task ':app:copyJniLibsflutterBuildRelease', task ':app:mergeReleaseJniLibFolders', task ':usb_serial:preBuild', task ':usb_serial:preReleaseBuild', task ':usb_serial:mergeReleaseJniLibFolders', task ':usb_serial:mergeReleaseNativeLibs', task ':usb_serial:copyReleaseJniLibsProjectOnly', task ':app:mergeReleaseNativeLibs', task ':app:stripReleaseDebugSymbols', task ':app:extractReleaseNativeSymbolTables', task ':app:mergeReleaseNativeDebugMetadata', task ':usb_serial:checkKotlinGradlePluginConfigurationErrors', task ':usb_serial:generateReleaseResources', task ':usb_serial:packageReleaseResources', task ':usb_serial:processReleaseNavigationResources', task ':usb_serial:parseReleaseLocalResources', task ':usb_serial:generateReleaseRFile', task ':usb_serial:compileReleaseKotlin', task ':usb_serial:javaPreCompileRelease', task ':usb_serial:compileReleaseJavaWithJavac', task ':usb_serial:mergeReleaseGeneratedProguardFiles', task ':usb_serial:exportReleaseConsumerProguardFiles', task ':app:buildKotlinToolingMetadata', task ':app:checkReleaseDuplicateClasses', task ':app:checkKotlinGradlePluginConfigurationErrors', task ':app:cleanMergeReleaseAssets', task ':app:generateReleaseAssets', task ':usb_serial:generateReleaseAssets', task ':usb_serial:mergeReleaseAssets', task ':app:mergeReleaseAssets', task ':app:copyFlutterAssetsRelease', task ':app:generateReleaseResources', task ':app:packageReleaseResources', task ':app:processReleaseNavigationResources', task ':app:parseReleaseLocalResources', task ':app:generateReleaseRFile', task ':usb_serial:bundleLibCompileToJarRelease', task ':app:compileReleaseKotlin', task ':app:javaPreCompileRelease', task ':app:compileReleaseJavaWithJavac', task ':usb_serial:prepareReleaseArtProfile', task ':app:mergeReleaseArtProfile', task ':usb_serial:writeReleaseAarMetadata', task ':app:checkReleaseAarMetadata', task ':app:mapReleaseSourceSetPaths', task ':app:compileReleaseNavigationResources', task ':app:mergeReleaseResources', task ':app:createReleaseCompatibleScreenManifests', task ':app:extractDeepLinksRelease', task ':usb_serial:extractDeepLinksRelease', task ':usb_serial:processReleaseManifest', task ':app:processReleaseMainManifest', task ':app:outputReleaseAppLinkSettings', task ':app:processReleaseManifest', task ':app:processReleaseManifestForPackage', task ':usb_serial:mapReleaseSourceSetPaths', task ':usb_serial:compileReleaseLibraryResources', task ':app:processReleaseResources', task ':usb_serial:bundleLibRuntimeToJarRelease', task ':app:expandReleaseArtProfileWildcards', task ':app:extractProguardFiles', task ':app:mergeReleaseGeneratedProguardFiles', task ':app:processReleaseJavaRes', task ':usb_serial:processReleaseJavaRes', task ':app:mergeReleaseJavaResource', task ':app:mergeReleaseStartupProfile', task ':app:minifyReleaseWithR8', task ':app:compileReleaseArtProfile', task ':app:compressReleaseAssets', task ':app:extractReleaseVersionControlInfo', task ':usb_serial:createFullJarRelease', task ':usb_serial:extractProguardFiles', task ':usb_serial:generateReleaseLintModel', task ':usb_serial:prepareLintJarForPublish', task':app:generateReleaseLintVitalReportModel', task ':usb_serial:checkReleaseAarMetadata', task ':usb_serial:stripReleaseDebugSymbols', task ':usb_serial:copyReleaseJniLibsProjectAndLocalJars', task ':usb_serial:extractDeepLinksForAarRelease', task ':usb_serial:extractReleaseAnnotations', task ':usb_serial:mergeReleaseConsumerProguardFiles', task ':usb_serial:mergeReleaseJavaResource', task ':usb_serial:syncReleaseLibJars',task ':usb_serial:bundleReleaseLocalLintAar', task ':usb_serial:lintVitalAnalyzeRelease', task ':usb_serial:writeReleaseLintModelMetadata', task ':app:lintVitalAnalyzeRelease', task ':usb_serial:generateReleaseLintVitalModel', task ':app:lintVitalReportRelease', task ':app:lintVitalRelease', task ':app:convertShrunkResourcesToBinaryRelease', task ':app:optimizeReleaseResources', task ':app:collectReleaseDependencies', task ':app:sdkReleaseDependencyData', task ':app:validateSigningRelease', task ':app:writeReleaseAppMetadata', task ':app:writeReleaseSigningConfigVersions', task ':app:packageRelease', task ':app:createReleaseApkListingFileRedirect', task ':app:assembleRelease']
+228-Tasks that were excluded: []
+229-work action Parameters of FilterShrinkerRulesTransform (Thread[Execution worker Thread 2,5,main]) started.
+230-work action Parameters of ExtractAarTransform (Thread[Execution worker Thread 2,5,main]) started.
+231-Resolve mutations for :app:ReleaseMinSdkCheck (Thread[Execution worker Thread 2,5,main]) started.
+232-:app:ReleaseMinSdkCheck (Thread[Execution worker Thread 2,5,main]) started.
+233-
+234-> Task :app:ReleaseMinSdkCheck
+235-Caching disabled for task ':app:ReleaseMinSdkCheck' because:
+236-  Build cache is disabled
+237-Task ':app:ReleaseMinSdkCheck' is not up-to-date because:
+238-  Task has not declared any outputs despite executing actions.
+239-Resolve mutations for :app:validateCompileSdkVersion (Thread[Execution worker Thread 2,5,main]) started.
+--
+826-  Build cache is disabled
+827-  Simple merging task
+828-Skipping task ':app:mergeReleaseArtProfile' as it is up-to-date.
+829-Resolve mutations for :usb_serial:writeReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+830-:usb_serial:writeReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+831-
+832-> Task :usb_serial:writeReleaseAarMetadata UP-TO-DATE
+833-Caching disabled for task ':usb_serial:writeReleaseAarMetadata' because:
+834-  Build cache is disabled
+835-  Caching has been disabled for the task
+836-Skipping task ':usb_serial:writeReleaseAarMetadata' as it is up-to-date.
+837-work action resolve aar-metadata.properties (project :usb_serial) (Thread[Execution worker,5,main]) started.
+838:Resolve mutations for :app:checkReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+839::app:checkReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+840-
+841:> Task :app:checkReleaseAarMetadata UP-TO-DATE
+842:Caching disabled for task ':app:checkReleaseAarMetadata' because:
+843-  Build cache is disabled
+844-  Caching has been disabled for the task
+845:Skipping task ':app:checkReleaseAarMetadata' as it is up-to-date.
+846-Resolve mutations for :app:mapReleaseSourceSetPaths (Thread[Execution worker,5,main]) started.
+847-:app:mapReleaseSourceSetPaths (Thread[Execution worker,5,main]) started.
+848-
+849-> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+850-Caching disabled for task ':app:mapReleaseSourceSetPaths' because:
+851-  Build cache is disabled
+852-  Caching has been disabled for the task
+853-Skipping task ':app:mapReleaseSourceSetPaths' as it is up-to-date.
+854-Resolve mutations for :app:compileReleaseNavigationResources (Thread[Execution worker,5,main]) started.
+855-:app:compileReleaseNavigationResources (Thread[Execution worker Thread 2,5,main]) started.
+856-
+857-> Task :app:compileReleaseNavigationResources UP-TO-DATE
+--
+1079-  Caching has been disabled for the task
+1080-Skipping task ':usb_serial:prepareLintJarForPublish' as it is up-to-date.
+1081-work action resolve lint.jar (project :usb_serial) (Thread[Execution worker,5,main]) started.
+1082-work action resolve lint.jar (project :usb_serial) (Thread[Execution worker,5,main]) started.
+1083-Resolve mutations for :app:generateReleaseLintVitalReportModel (Thread[Execution worker,5,main]) started.
+1084-:app:generateReleaseLintVitalReportModel (Thread[Execution worker,5,main]) started.
+1085-
+1086-> Task :app:generateReleaseLintVitalReportModel UP-TO-DATE
+1087-Caching disabled for task ':app:generateReleaseLintVitalReportModel' because:
+1088-  Build cache is disabled
+1089-  Caching has been disabled for the task
+1090-Skipping task ':app:generateReleaseLintVitalReportModel' as it is up-to-date.
+1091:Resolve mutations for :usb_serial:checkReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+1092::usb_serial:checkReleaseAarMetadata (Thread[included builds,5,main]) started.
+1093-
+1094-> Task :app:compressReleaseAssets
+1095-Caching disabled for task ':app:compressReleaseAssets' because:
+1096-  Build cache is disabled
+1097-Task ':app:compressReleaseAssets' is not up-to-date because:
+1098-  Input property 'inputDirs' file /home/matias/Escritorio/control de luces arduino/control_luces/build/app/intermediates/assets/release/mergeReleaseAssets/flutter_assets/fonts/MaterialIcons-Regular.otf has changed.
+1099-Resolve mutations for :usb_serial:stripReleaseDebugSymbols (Thread[Execution worker Thread 2,5,main]) started.
+1100-:usb_serial:stripReleaseDebugSymbols (Thread[Execution worker Thread 2,5,main])started.
+1101-
+1102-> Task :usb_serial:stripReleaseDebugSymbols NO-SOURCE
+1103-Skipping task ':usb_serial:stripReleaseDebugSymbols' as it has no source files and no previous output files.
+1104-Resolve mutations for :usb_serial:copyReleaseJniLibsProjectAndLocalJars (Thread[Execution worker Thread 2,5,main]) started.
+--
+1110-  Caching has been disabled for the task
+1111-Skipping task ':usb_serial:copyReleaseJniLibsProjectAndLocalJars' as it is up-to-date.
+1112-Resolve mutations for :usb_serial:extractDeepLinksForAarRelease (Thread[Execution worker,5,main]) started.
+1113-:usb_serial:extractDeepLinksForAarRelease (Thread[Execution worker,5,main]) started.
+1114-
+1115-> Task :usb_serial:extractDeepLinksForAarRelease UP-TO-DATE
+1116-Caching disabled for task ':usb_serial:extractDeepLinksForAarRelease' because:
+1117-  Build cache is disabled
+1118-Skipping task ':usb_serial:extractDeepLinksForAarRelease' as it is up-to-date.
+1119-Resolve mutations for :usb_serial:extractReleaseAnnotations (Thread[Execution worker,5,main]) started.
+1120-:usb_serial:extractReleaseAnnotations (Thread[Execution worker,5,main]) started.
+1121-
+1122:> Task :usb_serial:checkReleaseAarMetadata FAILED
+1123:Caching disabled for task ':usb_serial:checkReleaseAarMetadata' because:
+1124-  Build cache is disabled
+1125-  Caching has been disabled for the task
+1126:Task ':usb_serial:checkReleaseAarMetadata' is not up-to-date because:
+1127-  Task has failed previously.
+1128-
+1129-> Task :usb_serial:extractReleaseAnnotations UP-TO-DATE
+1130-Caching disabled for task ':usb_serial:extractReleaseAnnotations' because:
+1131-  Build cache is disabled
+1132-Skipping task ':usb_serial:extractReleaseAnnotations' as it is up-to-date.
+1133-Build 3d0af545-37c1-48f4-89d4-077180154421 is closed
+1134-Build 390ed8f1-ae18-4454-bbf3-67ac05e52d1d is closed
+1135-
+1136-[Incubating] Problems report is available at: file:///home/matias/Escritorio/control%20de%20luces%20arduino/control_luces/build/reports/problems/problems-report.html
+1137-
+1138:FAILURE: Build failed with an exception.
+1139-
+1140-* What went wrong:
+1141:Execution failed for task ':usb_serial:checkReleaseAarMetadata'.
+1142-> A failure occurred while executing com.android.build.gradle.internal.tasks.CheckAarMetadataWorkAction
+1143:   > 15 issues were found when checking AAR metadata:
+1144-     
+1145:       1.  Dependency 'androidx.fragment:fragment:1.7.1' requires libraries andapplications that
+1146-           depend on it to compile against version 34 or later of the
+1147-           Android APIs.
+1148-     
+1149-           :usb_serial is currently compiled against android-33.
+1150-     
+1151:           Recommended action: Update this project to use a newer compileSdk
+1152-           of at least 34, for example 36.
+1153-     
+1154:           Note that updating a library or application's compileSdk (which
+1155-           allows newer APIs to be used) can be done separately from updating
+1156-           targetSdk (which opts the app in to new runtime behavior) and
+1157-           minSdk (which determines which devices the app can be installed
+1158-           on).
+1159-     
+1160:       2.  Dependency 'androidx.window:window:1.2.0' requires libraries and applications that
+1161-           depend on it to compile against version 34 or later of the
+1162-           Android APIs.
+1163-     
+1164-           :usb_serial is currently compiled against android-33.
+1165-     
+1166:           Recommended action: Update this project to use a newer compileSdk
+1167-           of at least 34, for example 36.
+1168-     
+1169:           Note that updating a library or application's compileSdk (which
+1170-           allows newer APIs to be used) can be done separately from updating
+1171-           targetSdk (which opts the app in to new runtime behavior) and
+1172-           minSdk (which determines which devices the app can be installed
+1173-           on).
+1174-     
+1175:       3.  Dependency 'androidx.window:window-java:1.2.0' requires libraries and applications that
+1176-           depend on it to compile against version 34 or later of the
+1177-           Android APIs.
+1178-     
+1179-           :usb_serial is currently compiled against android-33.
+1180-     
+1181:           Recommended action: Update this project to use a newer compileSdk
+1182-           of at least 34, for example 36.
+1183-     
+1184:           Note that updating a library or application's compileSdk (which
+1185-           allows newer APIs to be used) can be done separately from updating
+1186-           targetSdk (which opts the app in to new runtime behavior) and
+1187-           minSdk (which determines which devices the app can be installed
+1188-           on).
+1189-     
+1190:       4.  Dependency 'androidx.activity:activity:1.8.1' requires libraries andapplications that
+1191-           depend on it to compile against version 34 or later of the
+1192-           Android APIs.
+1193-     
+1194-           :usb_serial is currently compiled against android-33.
+1195-     
+1196:           Recommended action: Update this project to use a newer compileSdk
+1197-           of at least 34, for example 36.
+1198-     
+1199:           Note that updating a library or application's compileSdk (which
+1200-           allows newer APIs to be used) can be done separately from updating
+1201-           targetSdk (which opts the app in to new runtime behavior) and
+1202-           minSdk (which determines which devices the app can be installed
+1203-           on).
+1204-     
+1205:       5.  Dependency 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0' requires libraries and applications that
+1206-           depend on it to compile against version 34 or later of the
+1207-           Android APIs.
+1208-     
+1209-           :usb_serial is currently compiled against android-33.
+1210-     
+1211:           Recommended action: Update this project to use a newer compileSdk
+1212-           of at least 34, for example 36.
+1213-     
+1214:           Note that updating a library or application's compileSdk (which
+1215-           allows newer APIs to be used) can be done separately from updating
+1216-           targetSdk (which opts the app in to new runtime behavior) and
+1217-           minSdk (which determines which devices the app can be installed
+1218-           on).
+1219-     
+1220:       6.  Dependency 'androidx.lifecycle:lifecycle-livedata:2.7.0' requires libraries and applications that
+1221-           depend on it to compile against version 34 or later of the
+1222-           Android APIs.
+1223-     
+1224-           :usb_serial is currently compiled against android-33.
+1225-     
+1226:           Recommended action: Update this project to use a newer compileSdk
+1227-           of at least 34, for example 36.
+1228-     
+1229:           Note that updating a library or application's compileSdk (which
+1230-           allows newer APIs to be used) can be done separately from updating
+1231-           targetSdk (which opts the app in to new runtime behavior) and
+1232-           minSdk (which determines which devices the app can be installed
+1233-           on).
+1234-     
+1235:       7.  Dependency 'androidx.lifecycle:lifecycle-viewmodel:2.7.0' requires libraries and applications that
+1236-           depend on it to compile against version 34 or later of the
+1237-           Android APIs.
+1238-     
+1239-           :usb_serial is currently compiled against android-33.
+1240-     
+1241:           Recommended action: Update this project to use a newer compileSdk
+1242-           of at least 34, for example 36.
+1243-     
+1244:           Note that updating a library or application's compileSdk (which
+1245-           allows newer APIs to be used) can be done separately from updating
+1246-           targetSdk (which opts the app in to new runtime behavior) and
+1247-           minSdk (which determines which devices the app can be installed
+1248-           on).
+1249-     
+1250:       8.  Dependency 'androidx.lifecycle:lifecycle-livedata-core:2.7.0' requires libraries and applications that
+1251-           depend on it to compile against version 34 or later of the
+1252-           Android APIs.
+1253-     
+1254-           :usb_serial is currently compiled against android-33.
+1255-     
+1256:           Recommended action: Update this project to use a newer compileSdk
+1257-           of at least 34, for example 36.
+1258-     
+1259:           Note that updating a library or application's compileSdk (which
+1260-           allows newer APIs to be used) can be done separately from updating
+1261-           targetSdk (which opts the app in to new runtime behavior) and
+1262-           minSdk (which determines which devices the app can be installed
+1263-           on).
+1264-     
+1265:       9.  Dependency 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0'requires libraries and applications that
+1266-           depend on it to compile against version 34 or later of the
+1267-           Android APIs.
+1268-     
+1269-           :usb_serial is currently compiled against android-33.
+1270-     
+1271:           Recommended action: Update this project to use a newer compileSdk
+1272-           of at least 34, for example 36.
+1273-     
+1274:           Note that updating a library or application's compileSdk (which
+1275-           allows newer APIs to be used) can be done separately from updating
+1276-           targetSdk (which opts the app in to new runtime behavior) and
+1277-           minSdk (which determines which devices the app can be installed
+1278-           on).
+1279-     
+1280:      10.  Dependency 'androidx.core:core-ktx:1.13.1' requires libraries and applications that
+1281-           depend on it to compile against version 34 or later of the
+1282-           Android APIs.
+1283-     
+1284-           :usb_serial is currently compiled against android-33.
+1285-     
+1286:           Recommended action: Update this project to use a newer compileSdk
+1287-           of at least 34, for example 36.
+1288-     
+1289:           Note that updating a library or application's compileSdk (which
+1290-           allows newer APIs to be used) can be done separately from updating
+1291-           targetSdk (which opts the app in to new runtime behavior) and
+1292-           minSdk (which determines which devices the app can be installed
+1293-           on).
+1294-     
+1295:      11.  Dependency 'androidx.core:core:1.13.1' requires libraries and applications that
+1296-           depend on it to compile against version 34 or later of the
+1297-           Android APIs.
+1298-     
+1299-           :usb_serial is currently compiled against android-33.
+1300-     
+1301:           Recommended action: Update this project to use a newer compileSdk
+1302-           of at least 34, for example 36.
+1303-     
+1304:           Note that updating a library or application's compileSdk (which
+1305-           allows newer APIs to be used) can be done separately from updating
+1306-           targetSdk (which opts the app in to new runtime behavior) and
+1307-           minSdk (which determines which devices the app can be installed
+1308-           on).
+1309-     
+1310:      12.  Dependency 'androidx.lifecycle:lifecycle-runtime:2.7.0' requires libraries and applications that
+1311-           depend on it to compile against version 34 or later of the
+1312-           Android APIs.
+1313-     
+1314-           :usb_serial is currently compiled against android-33.
+1315-     
+1316:           Recommended action: Update this project to use a newer compileSdk
+1317-           of at least 34, for example 36.
+1318-     
+1319:           Note that updating a library or application's compileSdk (which
+1320-           allows newer APIs to be used) can be done separately from updating
+1321-           targetSdk (which opts the app in to new runtime behavior) and
+1322-           minSdk (which determines which devices the app can be installed
+1323-           on).
+1324-     
+1325:      13.  Dependency 'androidx.lifecycle:lifecycle-process:2.7.0' requires libraries and applications that
+1326-           depend on it to compile against version 34 or later of the
+1327-           Android APIs.
+1328-     
+1329-           :usb_serial is currently compiled against android-33.
+1330-     
+1331:           Recommended action: Update this project to use a newer compileSdk
+1332-           of at least 34, for example 36.
+1333-     
+1334:           Note that updating a library or application's compileSdk (which
+1335-           allows newer APIs to be used) can be done separately from updating
+1336-           targetSdk (which opts the app in to new runtime behavior) and
+1337-           minSdk (which determines which devices the app can be installed
+1338-           on).
+1339-     
+1340:      14.  Dependency 'androidx.annotation:annotation-experimental:1.4.0' requires libraries and applications that
+1341-           depend on it to compile against version 34 or later of the
+1342-           Android APIs.
+1343-     
+1344-           :usb_serial is currently compiled against android-33.
+1345-     
+1346:           Recommended action: Update this project to use a newer compileSdk
+1347-           of at least 34, for example 36.
+1348-     
+1349:           Note that updating a library or application's compileSdk (which
+1350-           allows newer APIs to be used) can be done separately from updating
+1351-           targetSdk (which opts the app in to new runtime behavior) and
+1352-           minSdk (which determines which devices the app can be installed
+1353-           on).
+1354-     
+1355:      15.  Dependency 'androidx.exifinterface:exifinterface:1.4.1' requires libraries and applications that
+1356-           depend on it to compile against version 34 or later of the
+1357-           Android APIs.
+1358-     
+1359-           :usb_serial is currently compiled against android-33.
+1360-     
+1361:           Recommended action: Update this project to use a newer compileSdk
+1362-           of at least 34, for example 36.
+1363-     
+1364:           Note that updating a library or application's compileSdk (which
+1365-           allows newer APIs to be used) can be done separately from updating
+1366-           targetSdk (which opts the app in to new runtime behavior) and
+1367-           minSdk (which determines which devices the app can be installed
+1368-           on).
+1369-
+1370-* Try:
+1371-> Run with --debug option to get more log output.
+1372-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+1373-> Get more help at https://help.gradle.org.
+1374-
+1375-* Exception is:
+1376:org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':usb_serial:checkReleaseAarMetadata'.
+1377-   at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+1378-   at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+1379-   at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+1380-   at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+1381-   at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+1382-   at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+1383-   at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+1384-   at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+1385-   at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+1386-   at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+1387-   at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+1388-   at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+--
+1429-   at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withLocksAcquired$0(DefaultWorkerLeaseService.java:269)
+1430-   at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+1431-   at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:267)
+1432-   at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:259)
+1433-   at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+1434-   at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
+1435-   at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
+1436-   at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
+1437-   at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+1438-   at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
+1439-   at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+1440-   at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+1441:Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing com.android.build.gradle.internal.tasks.CheckAarMetadataWorkAction
+1442-   at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:289)
+1443-   at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+1444-   at org.gradle.internal.Factories$1.create(Factories.java:30)
+1445-   at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withoutLocks$2(DefaultWorkerLeaseService.java:344)
+1446-   at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+1447-   at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:342)
+1448-   at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:326)
+1449-   at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:331)
+1450-   at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+1451-   at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
+1452-   at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
+1453-   at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
+--
+1532-   at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+1533-   at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+1534-   at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+1535-   at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+1536-   at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+1537-   at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+1538-   at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+1539-   at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+1540-   at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)
+1541-   at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
+1542-   at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+1543-   ... 61 more
+1544:Caused by: java.lang.RuntimeException: 15 issues were found when checking AAR metadata:
+1545-
+1546:  1.  Dependency 'androidx.fragment:fragment:1.7.1' requires libraries and applications that
+1547-      depend on it to compile against version 34 or later of the
+1548-      Android APIs.
+1549-
+1550-      :usb_serial is currently compiled against android-33.
+1551-
+1552:      Recommended action: Update this project to use a newer compileSdk
+1553-      of at least 34, for example 36.
+1554-
+1555:      Note that updating a library or application's compileSdk (which
+1556-      allows newer APIs to be used) can be done separately from updating
+1557-      targetSdk (which opts the app in to new runtime behavior) and
+1558-      minSdk (which determines which devices the app can be installed
+1559-      on).
+1560-
+1561:  2.  Dependency 'androidx.window:window:1.2.0' requires libraries and applications that
+1562-      depend on it to compile against version 34 or later of the
+1563-      Android APIs.
+1564-
+1565-      :usb_serial is currently compiled against android-33.
+1566-
+1567:      Recommended action: Update this project to use a newer compileSdk
+1568-      of at least 34, for example 36.
+1569-
+1570:      Note that updating a library or application's compileSdk (which
+1571-      allows newer APIs to be used) can be done separately from updating
+1572-      targetSdk (which opts the app in to new runtime behavior) and
+1573-      minSdk (which determines which devices the app can be installed
+1574-      on).
+1575-
+1576:  3.  Dependency 'androidx.window:window-java:1.2.0' requires libraries and applications that
+1577-      depend on it to compile against version 34 or later of the
+1578-      Android APIs.
+1579-
+1580-      :usb_serial is currently compiled against android-33.
+1581-
+1582:      Recommended action: Update this project to use a newer compileSdk
+1583-      of at least 34, for example 36.
+1584-
+1585:      Note that updating a library or application's compileSdk (which
+1586-      allows newer APIs to be used) can be done separately from updating
+1587-      targetSdk (which opts the app in to new runtime behavior) and
+1588-      minSdk (which determines which devices the app can be installed
+1589-      on).
+1590-
+1591:  4.  Dependency 'androidx.activity:activity:1.8.1' requires libraries and applications that
+1592-      depend on it to compile against version 34 or later of the
+1593-      Android APIs.
+1594-
+1595-      :usb_serial is currently compiled against android-33.
+1596-
+1597:      Recommended action: Update this project to use a newer compileSdk
+1598-      of at least 34, for example 36.
+1599-
+1600:      Note that updating a library or application's compileSdk (which
+1601-      allows newer APIs to be used) can be done separately from updating
+1602-      targetSdk (which opts the app in to new runtime behavior) and
+1603-      minSdk (which determines which devices the app can be installed
+1604-      on).
+1605-
+1606:  5.  Dependency 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0' requires libraries and applications that
+1607-      depend on it to compile against version 34 or later of the
+1608-      Android APIs.
+1609-
+1610-      :usb_serial is currently compiled against android-33.
+1611-
+1612:      Recommended action: Update this project to use a newer compileSdk
+1613-      of at least 34, for example 36.
+1614-
+1615:      Note that updating a library or application's compileSdk (which
+1616-      allows newer APIs to be used) can be done separately from updating
+1617-      targetSdk (which opts the app in to new runtime behavior) and
+1618-      minSdk (which determines which devices the app can be installed
+1619-      on).
+1620-
+1621:  6.  Dependency 'androidx.lifecycle:lifecycle-livedata:2.7.0' requires libraries and applications that
+1622-      depend on it to compile against version 34 or later of the
+1623-      Android APIs.
+1624-
+1625-      :usb_serial is currently compiled against android-33.
+1626-
+1627:      Recommended action: Update this project to use a newer compileSdk
+1628-      of at least 34, for example 36.
+1629-
+1630:      Note that updating a library or application's compileSdk (which
+1631-      allows newer APIs to be used) can be done separately from updating
+1632-      targetSdk (which opts the app in to new runtime behavior) and
+1633-      minSdk (which determines which devices the app can be installed
+1634-      on).
+1635-
+1636:  7.  Dependency 'androidx.lifecycle:lifecycle-viewmodel:2.7.0' requires libraries and applications that
+1637-      depend on it to compile against version 34 or later of the
+1638-      Android APIs.
+1639-
+1640-      :usb_serial is currently compiled against android-33.
+1641-
+1642:      Recommended action: Update this project to use a newer compileSdk
+1643-      of at least 34, for example 36.
+1644-
+1645:      Note that updating a library or application's compileSdk (which
+1646-      allows newer APIs to be used) can be done separately from updating
+1647-      targetSdk (which opts the app in to new runtime behavior) and
+1648-      minSdk (which determines which devices the app can be installed
+1649-      on).
+1650-
+1651:  8.  Dependency 'androidx.lifecycle:lifecycle-livedata-core:2.7.0' requires libraries and applications that
+1652-      depend on it to compile against version 34 or later of the
+1653-      Android APIs.
+1654-
+1655-      :usb_serial is currently compiled against android-33.
+1656-
+1657:      Recommended action: Update this project to use a newer compileSdk
+1658-      of at least 34, for example 36.
+1659-
+1660:      Note that updating a library or application's compileSdk (which
+1661-      allows newer APIs to be used) can be done separately from updating
+1662-      targetSdk (which opts the app in to new runtime behavior) and
+1663-      minSdk (which determines which devices the app can be installed
+1664-      on).
+1665-
+1666:  9.  Dependency 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0' requires libraries and applications that
+1667-      depend on it to compile against version 34 or later of the
+1668-      Android APIs.
+1669-
+1670-      :usb_serial is currently compiled against android-33.
+1671-
+1672:      Recommended action: Update this project to use a newer compileSdk
+1673-      of at least 34, for example 36.
+1674-
+1675:      Note that updating a library or application's compileSdk (which
+1676-      allows newer APIs to be used) can be done separately from updating
+1677-      targetSdk (which opts the app in to new runtime behavior) and
+1678-      minSdk (which determines which devices the app can be installed
+1679-      on).
+1680-
+1681: 10.  Dependency 'androidx.core:core-ktx:1.13.1' requires libraries and applications that
+1682-      depend on it to compile against version 34 or later of the
+1683-      Android APIs.
+1684-
+1685-      :usb_serial is currently compiled against android-33.
+1686-
+1687:      Recommended action: Update this project to use a newer compileSdk
+1688-      of at least 34, for example 36.
+1689-
+1690:      Note that updating a library or application's compileSdk (which
+1691-      allows newer APIs to be used) can be done separately from updating
+1692-      targetSdk (which opts the app in to new runtime behavior) and
+1693-      minSdk (which determines which devices the app can be installed
+1694-      on).
+1695-
+1696: 11.  Dependency 'androidx.core:core:1.13.1' requires libraries and applications that
+1697-      depend on it to compile against version 34 or later of the
+1698-      Android APIs.
+1699-
+1700-      :usb_serial is currently compiled against android-33.
+1701-
+1702:      Recommended action: Update this project to use a newer compileSdk
+1703-      of at least 34, for example 36.
+1704-
+1705:      Note that updating a library or application's compileSdk (which
+1706-      allows newer APIs to be used) can be done separately from updating
+1707-      targetSdk (which opts the app in to new runtime behavior) and
+1708-      minSdk (which determines which devices the app can be installed
+1709-      on).
+1710-
+1711: 12.  Dependency 'androidx.lifecycle:lifecycle-runtime:2.7.0' requires libraries and applications that
+1712-      depend on it to compile against version 34 or later of the
+1713-      Android APIs.
+1714-
+1715-      :usb_serial is currently compiled against android-33.
+1716-
+1717:      Recommended action: Update this project to use a newer compileSdk
+1718-      of at least 34, for example 36.
+1719-
+1720:      Note that updating a library or application's compileSdk (which
+1721-      allows newer APIs to be used) can be done separately from updating
+1722-      targetSdk (which opts the app in to new runtime behavior) and
+1723-      minSdk (which determines which devices the app can be installed
+1724-      on).
+1725-
+1726: 13.  Dependency 'androidx.lifecycle:lifecycle-process:2.7.0' requires libraries and applications that
+1727-      depend on it to compile against version 34 or later of the
+1728-      Android APIs.
+1729-
+1730-      :usb_serial is currently compiled against android-33.
+1731-
+1732:      Recommended action: Update this project to use a newer compileSdk
+1733-      of at least 34, for example 36.
+1734-
+1735:      Note that updating a library or application's compileSdk (which
+1736-      allows newer APIs to be used) can be done separately from updating
+1737-      targetSdk (which opts the app in to new runtime behavior) and
+1738-      minSdk (which determines which devices the app can be installed
+1739-      on).
+1740-
+1741: 14.  Dependency 'androidx.annotation:annotation-experimental:1.4.0' requires libraries and applications that
+1742-      depend on it to compile against version 34 or later of the
+1743-      Android APIs.
+1744-
+1745-      :usb_serial is currently compiled against android-33.
+1746-
+1747:      Recommended action: Update this project to use a newer compileSdk
+1748-      of at least 34, for example 36.
+1749-
+1750:      Note that updating a library or application's compileSdk (which
+1751-      allows newer APIs to be used) can be done separately from updating
+1752-      targetSdk (which opts the app in to new runtime behavior) and
+1753-      minSdk (which determines which devices the app can be installed
+1754-      on).
+1755-
+1756: 15.  Dependency 'androidx.exifinterface:exifinterface:1.4.1' requires libraries and applications that
+1757-      depend on it to compile against version 34 or later of the
+1758-      Android APIs.
+1759-
+1760-      :usb_serial is currently compiled against android-33.
+1761-
+1762:      Recommended action: Update this project to use a newer compileSdk
+1763-      of at least 34, for example 36.
+1764-
+1765:      Note that updating a library or application's compileSdk (which
+1766-      allows newer APIs to be used) can be done separately from updating
+1767-      targetSdk (which opts the app in to new runtime behavior) and
+1768-      minSdk (which determines which devices the app can be installed
+1769-      on).
+1770-   at com.android.build.gradle.internal.tasks.CheckAarMetadataWorkAction.execute(CheckAarMetadataTask.kt:239)
+1771-   at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
+1772-   at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
+1773-   at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
+1774-   at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:102)
+1775-   at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:61)
+1776-   at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
+1777-   at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
+--
+1797-   at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+1798-   at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)
+1799-   at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)
+1800-   ... 2 more
+1801-
+1802-
+1803-Deprecated Gradle features were used in this build, making it incompatible withGradle 10.
+1804-
+1805-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+1806-
+1807-For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+1808-
+1809:BUILD FAILED in 2m 43s
+1810-83 actionable tasks: 16 executed, 67 up-to-date
